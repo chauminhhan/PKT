@@ -1,4 +1,4 @@
-name: Build C++ Project
+name: Build
 
 on:
   push:
@@ -12,11 +12,15 @@ jobs:
 
       - uses: microsoft/setup-msbuild@v1
 
-      - run: msbuild PacketTracerRecovery.sln /p:Configuration=Release
+      - name: Build
+        run: msbuild PacketTracerRecovery.sln /p:Configuration=Release
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload build files
+        uses: actions/upload-artifact@v3
         with:
-          name: build
+          name: build-files
           path: |
-            PacketTracerInjector/Release/*
-            PacketTracerDll/Release/*
+            PacketTracerInjector/**/Release/*
+            PacketTracerDll/**/Release/*
+            PacketTracerInjector/**/Debug/*
+            PacketTracerDll/**/Debug/*
