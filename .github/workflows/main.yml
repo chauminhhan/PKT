@@ -8,11 +8,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
+      - uses: microsoft/setup-msbuild@v1
 
-      - name: Build Solution
-        run: msbuild PacketTracerRecovery.sln /p:Configuration=Release
+      - run: msbuild PacketTracerRecovery.sln /p:Configuration=Release
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: |
+            PacketTracerInjector/Release/*
+            PacketTracerDll/Release/*
